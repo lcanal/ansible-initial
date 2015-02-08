@@ -1,1 +1,2 @@
 testserver  ansible_ssh_host=ec2-52-0-11-23.compute-1.amazonaws.com 
+testserver1  ansible_ssh_host=ec2-52-0-11-23.compute-1.amazonaws.com 
