@@ -1,2 +1,2 @@
 # ansible
-Test scripts and future prod scripts?
+Test scripts for intial Ansible playbooks
