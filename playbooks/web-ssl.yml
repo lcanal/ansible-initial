@@ -1,0 +1,38 @@
+##Install Nginx without SSL Certs. From Chap2 of Ansible Up and Running Preview
+---
+- name: Configure webservers with nginx
+  hosts: webservers
+  sudo: True
+  vars:
+    key_file: /etc/nginx/ssl/nginx.key
+    cert_file: /etc/nginx/ssl/nginx.crt
+    conf_file: /etc/nginx/sites-available/default
+    server_name: localhost    
+  tasks:
+    - name: install nginx
+      apt: name=nginx update_cache=yes
+    
+    - name: create directories for ssl certificates
+      file: path=/etc/nginx/ssl state=directory
+    
+    - name: Copy SSL key
+      copy: src=files/nginx.key dest={{ key_file }} owner=root mode=0600
+      notify: restart nginx
+
+    - name: Copy SSL Certificate
+      copy: src=files/nginx.crt dest={{ cert_file }} 
+      notify: restart nginx
+    
+    - name: copy nginx config file
+      template: src=templates/nginx.conf.j2 dest={{ conf_file }}
+      notify: restart nginx
+    
+    - name: enable the config
+      file: dest=/etc/nginx/sites-enabled/default src={{ conf_file}} state=link
+      notify: restart nginx
+    
+    - name: copy index.html
+      copy: src=files/index.html dest=/usr/share/nginx/html/index.html mode=0644
+  handlers:
+    - name: restart nginx
+      service: name=nginx state=restarted
