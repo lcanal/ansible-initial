@@ -1,5 +1,0 @@
-[webservers]
-awsserver1 ansible_ssh_host=52.0.228.46
-#awsserver2 ansible_ssh_host=
-awsserver3 ansible_ssh_host=52.1.10.196
-awsserver4 ansible_ssh_host=52.1.13.139
