@@ -1,3 +1,4 @@
+##Install Nginx without SSL Certs. From Chap2 of Ansible Up and Running Preview
 ---
 - name: Configure webservers with nginx
   hosts: webservers
